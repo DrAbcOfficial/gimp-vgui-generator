@@ -11,10 +11,9 @@ LOAD_PROC        = 'gimp-vgui-generator'
 
 
 def caller(image, dummy):
-    print("AAAAAAAAAA")
     layers = image.layers
     resultstr = ""
-    for layer in layers:
+    for layer in reversed(layers):
         if layer.name.find("|") < 0:
             continue
         spl = layer.name.split("|")
@@ -25,8 +24,7 @@ def caller(image, dummy):
         resultstr += "\t\"tall\"\t\"" + str(layer.height) + "\"\n"
         resultstr += "\t\"xpos\"\t\"" + str(layer.offsets[0]) + "\"\n"
         resultstr += "\t\"ypos\"\t\"" + str(layer.offsets[1]) + "\"\n"
-        resultstr += "}"
-    print(resultstr)
+        resultstr += "}\n"
     dialog = gtk.Dialog("Resource", None, gtk.DIALOG_MODAL, (gtk.STOCK_OK, gtk.RESPONSE_OK))
     entry = gtk.TextView()
     entry.set_wrap_mode(gtk.WRAP_WORD)
